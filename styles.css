@@ -1,54 +1,33 @@
-body {
-    font-family: 'Arial', sans-serif; /* Change to your preferred font, such as 'Helvetica' or 'Georgia' */
+/* General Reset */
+body, h1, p {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Set a simple font */
+    line-height: 1.6; /* Enhance readability */
     background-color: #fff; /* White background */
-    color: #333; /* Dark grey text color for contrast */
-    line-height: 1.8; /* Enhanced line spacing for readability */
+    color: #333; /* Standard dark grey text color */
+    padding: 20px; /* Space around the page */
 }
 
-.wrapper {
-    width: 90%; /* Full width to utilize the entire viewport width */
-    max-width: 640px; /* Narrow width for better readability */
-    margin: 40px auto; /* Top and bottom margin with auto for horizontal centering */
-    padding: 20px; /* Adequate padding around the content */
-    background-color: #fff; /* Maintains a white background inside the wrapper */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Subtle shadow for a slight depth effect */
+/* Centered Content with Margins */
+main {
+    margin: 50px auto; /* Leaves space on all 4 sides and centers content */
+    padding: 20px; /* Adds padding inside the content box */
+    max-width: 50%; /* Restricts the text to half the screen width */
+    background-color: #fff; /* Ensures a white background */
 }
 
-header, footer {
-    text-align: center; /* Center alignment for header and footer text */
-    padding: 10px 0; /* Padding to separate the content vertically */
-    color: #666; /* Slightly lighter grey for subtext */
+/* Font Control */
+p {
+    font-size: 16px; /* Default paragraph text size */
 }
 
-main h1 {
-    font-size: 2em; /* Larger font size for headings */
-    margin: 20px 0 10px; /* Margin around the heading for spacing */
-    color: #333; /* Dark grey color for headline */
-}
-
-nav ul {
-    list-style-type: none; /* Removes default list styling */
-    padding: 0; /* Removes padding to align with the edges */
-    text-align: center; /* Center aligns the navigation links */
-}
-
-nav ul li {
-    display: inline; /* Inline display to place links in a row */
-    margin-right: 15px; /* Right margin for spacing between menu items */
-}
-
-nav ul li a {
-    text-decoration: none; /* Removes underline from links */
-    color: #1a0dab; /* Blue color for links to stand out */
-}
-
-nav ul li a:hover {
-    text-decoration: underline; /* Adds underline on hover for visual feedback */
-}
-
-footer p {
-    font-size: 0.9em; /* Smaller font size for footer text */
-    color: #aaa; /* Light grey color for less emphasis on footer */
+h1 {
+    font-size: 24px; /* Heading font size */
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Add space below the heading */
 }
