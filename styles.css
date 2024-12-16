@@ -8,7 +8,7 @@ body {
 }
 
 .wrapper {
-    width: 100%; /* Full width to utilize the entire viewport width */
+    width: 90%; /* Full width to utilize the entire viewport width */
     max-width: 640px; /* Narrow width for better readability */
     margin: 40px auto; /* Top and bottom margin with auto for horizontal centering */
     padding: 20px; /* Adequate padding around the content */
