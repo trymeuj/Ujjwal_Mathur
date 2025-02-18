@@ -23,6 +23,7 @@ main {
 
 /* Font Control */
 p {
+    margin-bottom: 16px;
     font-size: 16px; /* Default paragraph text size */
 }
 
