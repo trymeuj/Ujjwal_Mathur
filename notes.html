@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes - Ujjwal Mathur</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .password-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .password-input {
+            padding: 15px;
+            font-size: 18px;
+            margin: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        
+        .password-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .password-btn:hover {
+            background-color: #555;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        .app-container {
+            display: none;
+            height: 100vh;
+            display: flex;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #34495e;
+        }
+        
+        .sidebar-nav {
+            padding: 20px;
+            border-bottom: 1px solid #34495e;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sidebar-nav li {
+            margin: 8px 0;
+        }
+        
+        .sidebar-nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-nav a:hover {
+            background-color: #34495e;
+        }
+        
+        .sidebar-nav a.active {
+            background-color: #3498db;
+        }
+        
+        .notebooks-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .notebooks-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notebooks-header h3 {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 16px;
+        }
+        
+        .new-notebook-btn {
+            padding: 6px 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .new-notebook-btn:hover {
+            background-color: #2ecc71;
+        }
+        
+        .notebooks-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        
+        .notebook-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #34495e;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .notebook-item:hover {
+            background-color: #34495e;
+        }
+        
+        .notebook-item.active {
+            background-color: #3498db;
+        }
+        
+        .notebook-content {
+            flex: 1;
+        }
+        
+        .notebook-name {
+            color: #ecf0f1;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .notebook-count {
+            color: #bdc3c7;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .notebook-actions {
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .notebook-item:hover .notebook-actions {
+            opacity: 1;
+        }
+        
+        .delete-notebook-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .delete-notebook-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .notes-sidebar {
+            width: 280px;
+            background-color: #34495e;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #2c3e50;
+            transition: width 0.3s ease;
+        }
+
+        .notes-sidebar.collapsed {
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .notes-sidebar-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notes-sidebar-title {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .notes-sidebar-header h3 {
+            margin: 0;
+            color: #ecf0f1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .new-note-btn {
+            padding: 6px 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        
+        .new-note-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        .collapse-btn, .expand-btn {
+            background: #2c3e50;
+            border: none;
+            color: #ecf0f1;
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collapse-btn:hover, .expand-btn:hover {
+            background: #1abc9c;
+        }
+
+        .notes-sidebar-collapsed {
+            width: 40px;
+            background: #34495e;
+            border-left: 1px solid #2c3e50;
+            display: flex;
+            align-items: flex-start;
+            padding-top: 15px;
+            justify-content: center;
+        }
+        
+        .notes-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        
+        .note-item {
+            padding: 8px 40px;
+            cursor: pointer;
+            border-bottom: 1px solid #2c3e50;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .note-item:hover {
+            background-color: #2c3e50;
+        }
+        
+        .note-item.active {
+            background-color: #3498db;
+        }
+        
+        .note-content {
+            flex: 1;
+        }
+        
+        .note-title {
+            color: #ecf0f1;
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 2px;
+        }
+        
+        .note-preview {
+            color: #bdc3c7;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+        
+        .note-date {
+            color: #95a5a6;
+            font-size: 10px;
+            margin-left: 10px;
+        }
+        
+        .delete-note-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        
+        .note-item:hover .delete-note-btn {
+            opacity: 1;
+        }
+        
+        .delete-note-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+        
+        .editor-header {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            background-color: #f8f9fa;
+        }
+        
+        .note-title-input {
+            width: 100%;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            background: transparent;
+            outline: none;
+            color: #333;
+            padding: 10px 0;
+        }
+        
+        .note-title-input::placeholder {
+            color: #999;
+        }
+        
+        .editor-area {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .note-content-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.6;
+            resize: none;
+            font-family: inherit;
+            color: #333;
+        }
+        
+        .note-content-input::placeholder {
+            color: #999;
+        }
+        
+        .editor-actions {
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            background-color: #f8f9fa;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .save-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .save-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #999;
+            text-align: center;
+        }
+        
+        .welcome-screen h2 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .loading-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            color: #999;
+            font-style: italic;
+            font-size: 12px;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+        }
+        
+        .modal h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .modal-btn.primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Screen -->
+    <div id="password-screen" class="password-container">
+        <h1>Enter Password to Access Notes</h1>
+        <input type="password" id="password-input" class="password-input" placeholder="Enter password">
+        <button onclick="checkPassword()" class="password-btn">Enter</button>
+        <div id="password-error" class="error-message"></div>
+    </div>
+
+    <!-- Main App Interface -->
+    <div id="app-container" class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Navigation -->
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="index.html">🏠 Home</a></li>
+                    <li><a href="essays.html">📝 Essays</a></li>
+                    <li><a href="books.html">📚 Books</a></li>
+                    <li><a href="notes.html" class="active">📋 Notes</a></li>
+                </ul>
+            </div>
+            
+            <!-- Notebooks Section -->
+            <div class="notebooks-section">
+                <div class="notebooks-header">
+                    <h3>📚 Notebooks</h3>
+                    <button class="new-notebook-btn" onclick="showCreateNotebookModal()">+ New</button>
+                </div>
+                <div id="notebooks-list" class="notebooks-list">
+                    <div class="loading-message">Loading notebooks...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div id="welcome-screen" class="welcome-screen">
+                <h2>Hi Ujjwal</h2>
+                <p>Write Something. It boosts your creativity!</p>
+            </div>
+            
+            <div id="editor" style="display: none; height: 100%; flex-direction: column;">
+                <div class="editor-header">
+                    <input type="text" id="note-title" class="note-title-input" placeholder="Untitled Note">
+                </div>
+                <div class="editor-area">
+                    <textarea id="note-content" class="note-content-input" placeholder="Start writing your note..."></textarea>
+                </div>
+                <div class="editor-actions">
+                    <button id="save-btn" class="save-btn" onclick="saveCurrentNote()">Save Note</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar for Notes (Collapsible) -->
+        <div id="notes-sidebar" class="notes-sidebar" style="display: none;">
+            <div class="notes-sidebar-header">
+                <div class="notes-sidebar-title">
+                    <h3 id="current-notebook-name">Select a Notebook</h3>
+                    <button class="new-note-btn" onclick="addNoteToCurrentNotebook()">+ New Note</button>
+                </div>
+                <button class="collapse-btn" onclick="toggleNotesSidebar()" title="Collapse sidebar">‹</button>
+            </div>
+            <div id="notes-list" class="notes-list">
+                <div class="empty-state">Select a notebook to view its notes</div>
+            </div>
+        </div>
+
+        <!-- Collapsed Notes Sidebar Toggle -->
+        <div id="notes-sidebar-collapsed" class="notes-sidebar-collapsed" style="display: none;">
+            <button class="expand-btn" onclick="toggleNotesSidebar()" title="Expand notes">›</button>
+        </div>
+    </div>
+
+    <!-- Create Notebook Modal -->
+    <div id="create-notebook-modal" class="modal">
+        <div class="modal-content">
+            <h3>Create New Notebook</h3>
+            <input type="text" id="notebook-name" placeholder="Notebook name...">
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="hideCreateNotebookModal()">Cancel</button>
+                <button class="modal-btn primary" onclick="createNotebook()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxrI1aZr6PiLNjRYoc5zA96yZD7aTuXig",
+            authDomain: "personal-website-e638b.firebaseapp.com",
+            projectId: "personal-website-e638b",
+            storageBucket: "personal-website-e638b.firebasestorage.app",
+            messagingSenderId: "338488336517",
+            appId: "1:338488336517:web:b9098f10970328c38789ec",
+            measurementId: "G-2BPPY29RH7"
+        };
+
+        // Import Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, updateDoc, where } from 'https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js';
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Password
+        const CORRECT_PASSWORD = "1906";
+
+        // Global state
+        let notebooks = [];
+        let notes = [];
+        let currentNote = null;
+        let currentNotebook = null;
+
+        // Password check
+        window.checkPassword = function() {
+            const inputPassword = document.getElementById('password-input').value;
+            const errorDiv = document.getElementById('password-error');
+            
+            if (inputPassword === CORRECT_PASSWORD) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('app-container').style.display = 'flex';
+                loadNotebooks();
+            } else {
+                errorDiv.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('password-input').value = '';
+            }
+        };
+
+        // Toggle notes sidebar
+        window.toggleNotesSidebar = function() {
+            const sidebar = document.getElementById('notes-sidebar');
+            const collapsed = document.getElementById('notes-sidebar-collapsed');
+            
+            if (sidebar.style.display === 'none' || sidebar.classList.contains('collapsed')) {
+                // Expand
+                sidebar.style.display = 'flex';
+                sidebar.classList.remove('collapsed');
+                collapsed.style.display = 'none';
+            } else {
+                // Collapse
+                sidebar.classList.add('collapsed');
+                setTimeout(() => {
+                    sidebar.style.display = 'none';
+                    collapsed.style.display = 'flex';
+                }, 300); // Wait for animation to complete
+            }
+        };
+
+        // Notebook Management
+        window.showCreateNotebookModal = function() {
+            document.getElementById('create-notebook-modal').style.display = 'flex';
+            document.getElementById('notebook-name').focus();
+        };
+
+        window.hideCreateNotebookModal = function() {
+            document.getElementById('create-notebook-modal').style.display = 'none';
+            document.getElementById('notebook-name').value = '';
+        };
+
+        window.createNotebook = async function() {
+            const name = document.getElementById('notebook-name').value.trim();
+            
+            if (!name) {
+                alert('Please enter a notebook name.');
+                return;
+            }
+
+            try {
+                console.log('Creating notebook:', name);
+                const docRef = await addDoc(collection(db, "notebooks"), {
+                    name: name,
+                    createdAt: new Date().toISOString()
+                });
+                console.log('Notebook created with ID:', docRef.id);
+                
+                hideCreateNotebookModal();
+                await loadNotebooks();
+            } catch (error) {
+                console.error("Error creating notebook: ", error);
+                alert('Error creating notebook. Please try again.');
+            }
+        };
+
+        window.selectNotebook = function(notebookId, notebookName) {
+            currentNotebook = notebookId;
+            
+            // Update active state
+            document.querySelectorAll('.notebook-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.notebook-item').classList.add('active');
+            
+            // Show notes sidebar
+            document.getElementById('notes-sidebar').style.display = 'flex';
+            document.getElementById('current-notebook-name').textContent = notebookName;
+            
+            // Load notes for this notebook
+            updateNotesDisplay();
+        };
+
+        window.addNoteToCurrentNotebook = function() {
+            if (!currentNotebook) {
+                alert('Please select a notebook first.');
+                return;
+            }
+            
+            currentNote = {
+                id: null,
+                title: '',
+                content: '',
+                notebookId: currentNotebook,
+                isNew: true
+            };
+            showEditor();
+            document.getElementById('note-title').value = '';
+            document.getElementById('note-content').value = '';
+            document.getElementById('note-title').focus();
+        };
+
+        window.deleteNotebook = async function(notebookId, event) {
+            event.stopPropagation();
+            
+            if (!confirm('Are you sure you want to delete this notebook and all its notes?')) return;
+            
+            try {
+                // Delete all notes in this notebook
+                const notesQuery = query(collection(db, "notes"), where("notebookId", "==", notebookId));
+                const notesSnapshot = await getDocs(notesQuery);
+                
+                for (const noteDoc of notesSnapshot.docs) {
+                    await deleteDoc(doc(db, "notes", noteDoc.id));
+                }
+                
+                // Delete the notebook
+                await deleteDoc(doc(db, "notebooks", notebookId));
+                
+                if (currentNote && currentNote.notebookId === notebookId) {
+                    currentNote = null;
+                    showWelcomeScreen();
+                }
+                
+                if (currentNotebook === notebookId) {
+                    currentNotebook = null;
+                    document.getElementById('notes-sidebar').style.display = 'none';
+                }
+                
+                await loadNotebooks();
+            } catch (error) {
+                console.error("Error deleting notebook: ", error);
+                alert('Error deleting notebook. Please try again.');
+            }
+        };
+
+        window.selectNote = function(noteId) {
+            const note = notes.find(n => n.id === noteId);
+            if (!note) return;
+            
+            // Update active states
+            document.querySelectorAll('.note-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.note-item').classList.add('active');
+            
+            currentNote = {
+                id: note.id,
+                title: note.title,
+                content: note.content,
+                notebookId: note.notebookId,
+                isNew: false
+            };
+            
+            showEditor();
+            document.getElementById('note-title').value = note.title;
+            document.getElementById('note-content').value = note.content;
+        };
+
+        window.deleteNote = async function(noteId, event) {
+            event.stopPropagation();
+            
+            if (!confirm('Are you sure you want to delete this note?')) return;
+            
+            try {
+                await deleteDoc(doc(db, "notes", noteId));
+                
+                if (currentNote && currentNote.id === noteId) {
+                    currentNote = null;
+                    showWelcomeScreen();
+                }
+                
+                await loadNotebooks();
+            } catch (error) {
+                console.error("Error deleting note: ", error);
+                alert('Error deleting note. Please try again.');
+            }
+        };
+
+        // Save current note
+        window.saveCurrentNote = async function() {
+            if (!currentNote) return;
+            
+            const title = document.getElementById('note-title').value.trim() || 'Untitled Note';
+            const content = document.getElementById('note-content').value.trim();
+            
+            if (!content) {
+                alert('Please add some content to your note.');
+                return;
+            }
+
+            const saveBtn = document.getElementById('save-btn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+
+            try {
+                console.log('Attempting to save note...', { title, content, notebookId: currentNote.notebookId });
+                
+                if (currentNote.isNew) {
+                    console.log('Creating new note...');
+                    const docRef = await addDoc(collection(db, "notes"), {
+                        title: title,
+                        content: content,
+                        notebookId: currentNote.notebookId,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    });
+                    currentNote.id = docRef.id;
+                    currentNote.isNew = false;
+                    console.log('New note created with ID:', docRef.id);
+                } else {
+                    console.log('Updating existing note with ID:', currentNote.id);
+                    await updateDoc(doc(db, "notes", currentNote.id), {
+                        title: title,
+                        content: content,
+                        updatedAt: new Date().toISOString()
+                    });
+                    console.log('Note updated successfully');
+                }
+                
+                currentNote.title = title;
+                currentNote.content = content;
+                
+                await loadNotebooks();
+                saveBtn.textContent = 'Saved!';
+                setTimeout(() => {
+                    saveBtn.textContent = 'Save Note';
+                }, 2000);
+            } catch (error) {
+                console.error("Detailed error saving note: ", error);
+                console.error("Error code:", error.code);
+                console.error("Error message:", error.message);
+                
+                let errorMessage = 'Error saving note. ';
+                if (error.code === 'permission-denied') {
+                    errorMessage += 'Database permissions issue. Check Firebase rules.';
+                } else {
+                    errorMessage += 'Please try again.';
+                }
+                
+                alert(errorMessage);
+                saveBtn.textContent = 'Save Note';
+            } finally {
+                saveBtn.disabled = false;
+            }
+        };
+
+        // Show editor
+        function showEditor() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('editor').style.display = 'flex';
+        }
+
+        // Show welcome screen
+        function showWelcomeScreen() {
+            document.getElementById('welcome-screen').style.display = 'flex';
+            document.getElementById('editor').style.display = 'none';
+        }
+
+        // Load notebooks and notes
+        async function loadNotebooks() {
+            const notebooksListDiv = document.getElementById('notebooks-list');
+            notebooksListDiv.innerHTML = '<div class="loading-message">Loading notebooks...</div>';
+
+            try {
+                console.log('Loading notebooks...');
+                const notebooksQuery = query(collection(db, "notebooks"), orderBy("createdAt", "desc"));
+                const notebooksSnapshot = await getDocs(notebooksQuery);
+                
+                notebooks = [];
+                notebooksSnapshot.forEach((doc) => {
+                    notebooks.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                console.log('Loading all notes...');
+                const notesQuery = query(collection(db, "notes"), orderBy("updatedAt", "desc"));
+                const notesSnapshot = await getDocs(notesQuery);
+                
+                notes = [];
+                notesSnapshot.forEach((doc) => {
+                    notes.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                console.log('Loaded notebooks:', notebooks);
+                console.log('Loaded notes:', notes);
+                updateNotebooksDisplay();
+                updateNotesDisplay();
+            } catch (error) {
+                console.error("Error loading data: ", error);
+                notebooksListDiv.innerHTML = '<div class="empty-state">Error loading notebooks. Please refresh the page.</div>';
+            }
+        }
+
+
+
+        // Update notebooks display
+        function updateNotebooksDisplay() {
+            const notebooksListDiv = document.getElementById('notebooks-list');
+            
+            if (notebooks.length === 0) {
+                notebooksListDiv.innerHTML = '<div class="empty-state">No notebooks yet.<br>Click "New" to create your first notebook!</div>';
+                return;
+            }
+
+            notebooksListDiv.innerHTML = '';
+            
+            notebooks.forEach((notebook) => {
+                const notebookElement = document.createElement('div');
+                notebookElement.className = 'notebook-item';
+                
+                const notebookNotes = notes.filter(note => note.notebookId === notebook.id);
+                
+                notebookElement.innerHTML = `
+                    <div class="notebook-content" onclick="selectNotebook('${notebook.id}', '${escapeHtml(notebook.name)}')">
+                        <div class="notebook-name">${escapeHtml(notebook.name)}</div>
+                        <div class="notebook-count">${notebookNotes.length} notes</div>
+                    </div>
+                    <div class="notebook-actions">
+                        <button class="delete-notebook-btn" onclick="deleteNotebook('${notebook.id}', event)" title="Delete notebook">🗑️</button>
+                    </div>
+                `;
+                
+                notebooksListDiv.appendChild(notebookElement);
+            });
+        }
+
+        // Update notes display in right sidebar
+        function updateNotesDisplay() {
+            const notesListDiv = document.getElementById('notes-list');
+            
+            if (!currentNotebook) {
+                notesListDiv.innerHTML = '<div class="empty-state">Select a notebook to view its notes</div>';
+                return;
+            }
+
+            const notebookNotes = notes.filter(note => note.notebookId === currentNotebook);
+            
+            if (notebookNotes.length === 0) {
+                notesListDiv.innerHTML = '<div class="empty-state">No notes in this notebook.<br>Click "New Note" to create one!</div>';
+                return;
+            }
+
+            notesListDiv.innerHTML = '';
+            
+            notebookNotes.forEach((note) => {
+                const noteElement = document.createElement('div');
+                noteElement.className = `note-item ${currentNote && currentNote.id === note.id ? 'active' : ''}`;
+                
+                const preview = note.content.substring(0, 50) + (note.content.length > 50 ? '...' : '');
+                const date = new Date(note.updatedAt || note.createdAt).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                noteElement.innerHTML = `
+                    <div class="note-content" onclick="selectNote('${note.id}')">
+                        <div class="note-title">${escapeHtml(note.title)}</div>
+                        <div class="note-preview">${escapeHtml(preview)}</div>
+                        <div class="note-date">${date}</div>
+                    </div>
+                    <button class="delete-note-btn" onclick="deleteNote('${note.id}', event)" title="Delete note">🗑️</button>
+                `;
+                
+                notesListDiv.appendChild(noteElement);
+            });
+        }
+
+
+
+        // Utility function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+                passwordInput.focus();
+            }
+            
+            // Notebook name input enter key
+            const notebookNameInput = document.getElementById('notebook-name');
+            if (notebookNameInput) {
+                notebookNameInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        createNotebook();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>             if (notebookNameInput) {
+                notebookNameInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        createNotebook();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
