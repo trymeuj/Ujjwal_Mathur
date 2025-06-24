@@ -385,9 +385,9 @@
         }
         
         .editor-header {
-            padding: 20px;
+            padding: 20px 8%;
             border-bottom: 1px solid #ddd;
-            background-color: #f8f9fa;
+            background-color: white;
         }
         
         .note-title-input {
@@ -450,9 +450,10 @@
         .editor-area {
             position: relative; /* Needed for absolute positioning of the toolbar */
             flex: 1;
-            padding: 20px;
+            padding: 20px 8%;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Ensure contained scrolling */
         }
         
         .note-content-input {
@@ -464,6 +465,16 @@
             resize: none;
             font-family: inherit;
             color: #333;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px); /* Set a maximum height to enable scrolling */
+            min-height: 300px;
+            /* Hide scrollbars */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+        
+        .note-content-input::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         
         .note-content-input::placeholder {
@@ -471,9 +482,9 @@
         }
         
         .editor-actions {
-            padding: 15px 20px;
+            padding: 15px 8%;
             border-top: 1px solid #ddd;
-            background-color: #f8f9fa;
+            background-color: white;
             display: flex;
             gap: 10px;
             justify-content: flex-end;
