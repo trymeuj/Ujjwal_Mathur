@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="blog-title">Blog Post - Ujjwal Mathur</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="essays.html">Essays</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <main>
+            <div class="essay-content">
+                <h1 id="blog-heading">Loading...</h1>
+                <p id="blog-credits" class="credits" style="display: none;"></p>
+                <div id="blog-content">
+                    <p>Loading blog content...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Function to load blog content from JSON
+        async function loadBlogPost() {
+            try {
+                // Get blog post ID from URL parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const blogId = urlParams.get('post');
+                
+                if (!blogId) {
+                    throw new Error('No blog post specified');
+                }
+
+                // Fetch blog data
+                const response = await fetch('blog-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const blogData = await response.json();
+                
+                if (blogData[blogId]) {
+                    const post = blogData[blogId];
+                    
+                    // Update page content
+                    document.getElementById('blog-title').textContent = post.title;
+                    document.getElementById('blog-heading').textContent = post.heading;
+                    
+                    // Show credits if available
+                    if (post.credits) {
+                        document.getElementById('blog-credits').textContent = post.credits;
+                        document.getElementById('blog-credits').style.display = 'block';
+                    }
+                    
+                    // Convert content array to HTML paragraphs
+                    const contentHtml = post.content.map(paragraph => `<p>${paragraph}</p>`).join('');
+                    document.getElementById('blog-content').innerHTML = contentHtml;
+                } else {
+                    throw new Error('Blog post not found');
+                }
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.getElementById('blog-heading').textContent = 'Blog Post Not Found';
+                document.getElementById('blog-content').innerHTML = `
+                    <p>The requested blog post could not be found.</p>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Requested post:</strong> ${urlParams.get('post') || 'None'}</p>
+                    <p>Please check the URL and try again.</p>
+                `;
+            }
+        }
+
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', loadBlogPost);
+    </script>
+</body>
+</html>
