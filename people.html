@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People I Follow - Ujjwal Mathur's Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* People Cards Styles */
+        .people-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+        }
+
+        .people-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+        }
+
+        .person-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .person-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .person-photo-section {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+        }
+
+        .person-photo {
+            width: 80px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            border: 2px solid #f8f9fa;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .person-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .person-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .person-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .person-text.collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .person-links {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .person-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .person-link:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+            text-decoration: underline;
+            margin-top: 5px;
+            align-self: flex-start;
+        }
+
+        .read-more-btn:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .person-card {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .person-photo-section {
+                flex-direction: row;
+                width: auto;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .person-name {
+                font-size: 14px;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="essays.html">Essays</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="people.html">People</a></li>
+                    <!-- <li><a href="svar.html">Svar</a></li>
+                    <li><a href="aiva.html">Aiva and AI Agents</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        
+        <main>
+            <div class="content-container">
+                <h2>People I Follow</h2>
+                <p>Here are some interesting people I follow and learn from:</p>
+                
+                <div class="people-container">
+                    <!-- People I learn from (alive) -->
+                    <div class="category-section">
+                        <h3 class="category-title">People I learn from (alive)</h3>
+                        <div class="people-grid">
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/Paul_Graham.jpeg" alt="Paul Graham" class="person-photo">
+                                    <div class="person-name">Paul Graham</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-paulg">
+                                        His Essays are what led me to the rest of the people on this list.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('paulg')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/paulg" target="_blank" class="person-link">Twitter</a>
+                                        <a href="http://paulgraham.com/" target="_blank" class="person-link">Essays</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/elon_musk.jpg" alt="Elon Musk" class="person-photo">
+                                    <div class="person-name">Elon Musk</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-elon">
+                                        Electric cars, space exploration, boring commpany, AI. Elon could be the one of the greatest humans to ever live. I personally don't like his move of getting into free speech and politics, but maybe that's a way to get power and resources beyond a private organisation's scope.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('elon')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/elonmusk" target="_blank" class="person-link">Twitter</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/sam-altman.jpeg" alt="Sam Altman" class="person-photo">
+                                    <div class="person-name">Sam Altman</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-sama">
+                                        Maybe the most influential person of the decade. 
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('sama')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/sama" target="_blank" class="person-link">Twitter</a>
+                                        <a href="https://blog.samaltman.com/" target="_blank" class="person-link">Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/pavel_durov.jpeg" alt="Pavel Durov" class="person-photo">
+                                    <div class="person-name">Pavel Durov</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-pavel">
+                                        He has a very contrarian way of running a company. Telegram is a 30 person company, perhaps the biggest and the most efficient lean startup in the world.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('pavel')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://en.wikipedia.org/wiki/Pavel_Durov" target="_blank" class="person-link">Wikipedia</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/naval-ravikant.jpg" alt="Naval Ravikant" class="person-photo">
+                                    <div class="person-name">Naval Ravikant</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-naval">
+                                        <em>The true measure of intelligence is if a person gets what they want in life</em>
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('naval')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/naval" target="_blank" class="person-link">Twitter</a>
+                                        <a href="https://nav.al/" target="_blank" class="person-link">Website</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/peter_thiel.jpeg" alt="Peter Thiel" class="person-photo">
+                                    <div class="person-name">Peter Thiel</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-peter">
+                                        I can't process even reading about his optimism. The guy who built the first and The most successful startup mafia. 
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('peter')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/finkd" target="_blank" class="person-link">Twitter</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/michael_jordan.jpeg" alt="Michael Jordan" class="person-photo">
+                                    <div class="person-name">Michael Jordan</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-michael">
+                                        The definition of Obsession (My source of info is only the internet). He retired from basketball when he could become the first player ever to win 4 in a row. Who does that? Then returned after 2 years to become the first player to win 3 peats twice. What ?
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('michael')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://en.wikipedia.org/wiki/Michael_Jordan" target="_blank" class="person-link">Wikipedia</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- People I learn from (not alive) -->
+                    <div class="category-section">
+                        <h3 class="category-title">People I learn from (not alive)</h3>
+                        <div class="people-grid">
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/lee_kuan_yew.jpg" alt="Lee Kuan Yew" class="person-photo">
+                                    <div class="person-name">Lee Kuan Yew</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-lee">
+                                        Literally "built" Singapore. Their "Gandhi", just did not die a year after independence, but led for the next 50 years and took them to where Singapore is today. Controversial way of leading a country, arguably established autocracy, but the results speak for themselves. In fact, I favor autocracy (to an extent) if needed for unprecendented growth. Unfortunately, not possible in India.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('lee')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://en.wikipedia.org/wiki/Lee_Kuan_Yew" target="_blank" class="person-link">Wikipedia</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/genghis_khan.jpeg" alt="Genghis Khan" class="person-photo">
+                                    <div class="person-name">Genghis Khan</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-genghis">
+                                        I was surprised to learn that he lost most of his battles until he turned 40, and then went onto become The Genghis Khan.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('genghis')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://en.wikipedia.org/wiki/Genghis_Khan" target="_blank" class="person-link">Wikipedia</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/kobe_bryant.jpeg" alt="Kobe Bryant" class="person-photo">
+                                    <div class="person-name">Kobe Bryant</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-kobe">
+                                        I believe he was arguably next to only MJ when it comes to obsession.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('kobe')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://en.wikipedia.org/wiki/Kobe_Bryant" target="_blank" class="person-link">Wikipedia</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Writers -->
+                    <div class="category-section">
+                        <h3 class="category-title">Writers</h3>
+                        <div class="people-grid">
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/chris_voss.jpg" alt="Chris Voss" class="person-photo">
+                                    <div class="person-name">Chris Voss</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-chris">
+                                        Who would you choose to negotiate if you life depended on it?
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('chris')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/FBInegotiator" target="_blank" class="person-link">Twitter</a>
+                                        <a href="https://www.blackswanltd.com/" target="_blank" class="person-link">Website</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <div class="person-photo-section">
+                                    <img src="public/Morgan_Housel.jpeg" alt="Morgan Housel" class="person-photo">
+                                    <div class="person-name">Morgan Housel</div>
+                                </div>
+                                <div class="person-content">
+                                    <div class="person-text collapsed" id="text-morgan">
+                                        I just fell in love with his writing.
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore('morgan')">Read more</button>
+                                    <div class="person-links">
+                                        <a href="https://twitter.com/morganhousel" target="_blank" class="person-link">Twitter</a>
+                                        <a href="https://www.collaborativefund.com/" target="_blank" class="person-link">Website</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Function to check if text is truncated and show/hide read more button accordingly
+        function checkTextTruncation() {
+            const textElements = document.querySelectorAll('.person-text');
+            
+            textElements.forEach(textElement => {
+                const button = textElement.nextElementSibling;
+                if (button && button.classList.contains('read-more-btn')) {
+                    // Check if the text is actually truncated
+                    const isTruncated = textElement.scrollHeight > textElement.clientHeight;
+                    
+                    if (isTruncated) {
+                        button.classList.add('visible');
+                        textElement.classList.add('collapsed');
+                    } else {
+                        button.classList.remove('visible');
+                        textElement.classList.remove('collapsed');
+                    }
+                }
+            });
+        }
+
+        // Function to toggle read more/less
+        function toggleReadMore(personId) {
+            const textElement = document.getElementById(`text-${personId}`);
+            const button = textElement.nextElementSibling;
+            
+            if (textElement.classList.contains('collapsed')) {
+                textElement.classList.remove('collapsed');
+                button.textContent = 'Read less';
+            } else {
+                textElement.classList.add('collapsed');
+                button.textContent = 'Read more';
+            }
+        }
+
+        // Check truncation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkTextTruncation();
+        });
+
+        // Check truncation on window resize
+        window.addEventListener('resize', function() {
+            checkTextTruncation();
+        });
+    </script>
+</body>
+</html>
