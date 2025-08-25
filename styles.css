@@ -55,14 +55,17 @@ main {
     padding: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
-/* Content Container - Centered with limited width */
+/* Content Container - Left-aligned with limited width */
 .content-container {
     max-width: 600px;
     width: 100%;
-    text-align: center;
+    text-align: left !important;
+    margin: 0;
+    align-self: flex-start;
 }
 
 /* Special styling for individual essay pages - better reading experience */
@@ -76,7 +79,7 @@ main {
 
 /* Content Styling */
 h1, h2 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
 }
 
@@ -121,6 +124,7 @@ a:hover {
 .timeline-container {
     margin: 40px 0;
     padding: 30px 0;
+    text-align: left;
 }
 
 .timeline {
@@ -129,7 +133,7 @@ a:hover {
     align-items: flex-start;
     position: relative;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0;
     padding: 0 30px;
 }
 
@@ -345,7 +349,7 @@ a:hover {
     font-size: 22px;
     color: #333;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
     position: relative;
 }
 
@@ -358,4 +362,110 @@ a:hover {
     width: 60px;
     height: 2px;
     background: #007bff;
+}
+
+/* Header section with profile photo */
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    gap: 20px;
+    width: 100%;
+}
+
+.header-section h2 {
+    margin: 0;
+    text-align: left;
+    flex: 1;
+}
+
+.header-section .profile-photo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 2px solid #f8f9fa !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments for header */
+@media (max-width: 768px) {
+    .header-section {
+        flex-direction: column;
+        text-align: left;
+        gap: 15px;
+    }
+    
+    .header-section h2 {
+        text-align: left;
+    }
+}
+
+/* Content sections styling */
+.content-section {
+    margin: 40px 0;
+    text-align: left;
+}
+
+.content-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+    text-align: left;
+}
+
+.content-section ul {
+    margin-bottom: 20px;
+}
+
+.content-section li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* Contact footer styling */
+.contact-footer {
+    margin: 50px 0 30px 0;
+    padding: 30px 0;
+    border-top: 2px solid #e9ecef;
+    text-align: left;
+}
+
+.contact-footer h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.contact-footer p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.contact-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-footer a:hover {
+    text-decoration: underline;
+}
+
+.contact-footer strong {
+    color: #333;
+}
+
+.contact-footer em {
+    color: #666;
+    font-style: italic;
 }
