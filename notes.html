@@ -610,6 +610,322 @@
             color: #888;
             font-style: italic;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .notes-sidebar {
+                width: 320px;
+                max-width: 40%;
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+            }
+
+            .editor-header {
+                padding: 15px 5%;
+            }
+
+            .editor-area {
+                padding: 15px 5%;
+            }
+
+            .editor-actions {
+                padding: 12px 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .password-container h1 {
+                font-size: 20px;
+                padding: 0 20px;
+                text-align: center;
+            }
+
+            .password-input {
+                width: 90%;
+                max-width: 300px;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .password-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .app-container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .sidebar-nav {
+                padding: 15px;
+            }
+
+            .sidebar-nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .sidebar-nav li {
+                margin: 0;
+            }
+
+            .sidebar-nav a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .notebooks-header {
+                padding: 12px 15px;
+            }
+
+            .notebooks-header h3 {
+                font-size: 14px;
+            }
+
+            .new-notebook-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .notebook-item {
+                padding: 12px 15px;
+            }
+
+            .notebook-name {
+                font-size: 13px;
+            }
+
+            .notebook-count {
+                font-size: 11px;
+            }
+
+            .main-content {
+                width: 100%;
+                min-height: 60vh;
+            }
+
+            .editor-header {
+                padding: 15px 4%;
+            }
+
+            .note-title-input {
+                font-size: 20px;
+                padding: 8px 0;
+            }
+
+            .editor-area {
+                padding: 15px 4%;
+            }
+
+            .note-content-input {
+                font-size: 15px;
+                min-height: 250px;
+            }
+
+            .editor-actions {
+                padding: 12px 4%;
+            }
+
+            .notes-sidebar {
+                width: 320px;
+                max-width: 85%;
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+            }
+
+            .notes-sidebar-header {
+                padding: 12px 15px;
+            }
+
+            .notes-sidebar-header h3 {
+                font-size: 13px;
+            }
+
+            .new-note-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .note-item {
+                padding: 12px 15px;
+            }
+
+            .note-title {
+                font-size: 13px;
+            }
+
+            .note-preview {
+                font-size: 11px;
+            }
+
+            .welcome-screen h2 {
+                font-size: 20px;
+            }
+
+            .welcome-screen p {
+                font-size: 14px;
+                padding: 0 20px;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .modal h3 {
+                font-size: 18px;
+            }
+
+            .modal input {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .modal-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .toolbar-btn, .toolbar-select {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .password-container h1 {
+                font-size: 18px;
+            }
+
+            .password-input {
+                width: 85%;
+                font-size: 14px;
+            }
+
+            .password-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .sidebar-nav a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .notebooks-header h3 {
+                font-size: 13px;
+            }
+
+            .notebook-name {
+                font-size: 12px;
+            }
+
+            .note-title-input {
+                font-size: 18px;
+            }
+
+            .note-content-input {
+                font-size: 14px;
+            }
+
+            .editor-header {
+                padding: 12px 3%;
+            }
+
+            .editor-area {
+                padding: 12px 3%;
+            }
+
+            .editor-actions {
+                padding: 10px 3%;
+            }
+
+            .notes-sidebar-header {
+                padding: 10px 12px;
+            }
+
+            .note-item {
+                padding: 10px 12px;
+            }
+
+            .modal-content {
+                padding: 15px;
+            }
+        }
+
+        /* Hide notes sidebar collapsed button on mobile */
+        @media (max-width: 1024px) {
+            .notes-sidebar-collapsed {
+                display: none !important;
+            }
+        }
+
+        /* Improve touch targets on mobile */
+        @media (max-width: 768px) {
+            .notebook-item,
+            .note-item,
+            .new-notebook-btn,
+            .new-note-btn,
+            .password-btn,
+            .modal-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .delete-notebook-btn,
+            .delete-note-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            /* Make delete buttons always visible on mobile */
+            .notebook-actions {
+                opacity: 1 !important;
+            }
+
+            .note-item .delete-note-btn {
+                opacity: 1 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -935,7 +1251,16 @@
             
             renderNotebooksList();
             
-            document.getElementById('notes-sidebar').style.display = 'flex';
+            // Ensure notes sidebar is visible and expanded
+            const sidebar = document.getElementById('notes-sidebar');
+            const collapsed = document.getElementById('notes-sidebar-collapsed');
+            
+            sidebar.style.display = 'flex';
+            sidebar.classList.remove('collapsed');
+            if (collapsed) {
+                collapsed.style.display = 'none';
+            }
+            
             document.getElementById('current-notebook-name').textContent = notebookName;
             
             showWelcomeScreen();

@@ -1,8 +1,11 @@
 /* General Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, h1, p {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -17,24 +20,58 @@ body {
 .container {
     display: flex;
     min-height: 100vh;
+    flex-direction: column;
+}
+
+@media (min-width: 769px) {
+    .container {
+        flex-direction: row;
+    }
 }
 
 /* Left Navigation (Simple Sidebar) */
 .nav-sidebar {
-    width: 200px;
-    padding: 40px 20px;
+    width: 100%;
+    padding: 20px;
     background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+@media (min-width: 769px) {
+    .nav-sidebar {
+        width: 200px;
+        padding: 40px 20px;
+        border-bottom: none;
+        border-right: 1px solid #e9ecef;
+    }
 }
 
 /* Navigation Styling - Simple and Clean */
 nav ul {
     list-style: none;
     padding: 0;
-    margin-left: 20px; /* Add left margin to navigation links */
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+@media (min-width: 769px) {
+    nav ul {
+        flex-direction: column;
+        margin-left: 20px;
+        gap: 0;
+    }
 }
 
 nav ul li {
-    margin-bottom: 4px; /* Further reduced vertical spacing between links */
+    margin-bottom: 0;
+}
+
+@media (min-width: 769px) {
+    nav ul li {
+        margin-bottom: 4px;
+    }
 }
 
 nav ul li a {
@@ -42,7 +79,14 @@ nav ul li a {
     color: #333;
     font-size: 16px;
     display: block;
-    padding: 5px 0;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+@media (min-width: 769px) {
+    nav ul li a {
+        padding: 5px 0;
+    }
 }
 
 nav ul li a:hover {
@@ -52,29 +96,49 @@ nav ul li a:hover {
 /* Main Content Area */
 main {
     flex: 1;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    main {
+        padding: 40px;
+    }
 }
 
 /* Content Container - Left-aligned with limited width */
 .content-container {
-    max-width: 600px;
+    max-width: 100%;
     width: 100%;
     text-align: left !important;
     margin: 0;
     align-self: flex-start;
 }
 
+@media (min-width: 769px) {
+    .content-container {
+        max-width: 600px;
+    }
+}
+
 /* Special styling for individual essay pages - better reading experience */
 .essay-content {
-    max-width: 65%;
+    max-width: 100%;
     width: 100%;
     margin: 0 auto;
     text-align: left; /* Left-align text for better reading */
     padding: 20px;
+}
+
+@media (min-width: 769px) {
+    .essay-content {
+        max-width: 65%;
+        padding: 20px;
+    }
 }
 
 /* Content Styling */
@@ -84,30 +148,58 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 28px;
-    margin-top: 20px; /* Reduce top margin for headings */
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+@media (min-width: 769px) {
+    h1 {
+        font-size: 28px;
+        margin-top: 20px;
+    }
 }
 
 h2 {
-    font-size: 24px;
-    margin-top: 20px; /* Reduce top margin for headings */
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+@media (min-width: 769px) {
+    h2 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
 }
 
 p {
     margin-bottom: 16px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.7;
+}
+
+@media (min-width: 769px) {
+    p {
+        font-size: 16px;
+    }
 }
 
 /* Lists */
 ul {
     margin-bottom: 20px;
     text-align: left;
+    padding-left: 20px;
 }
 
 ul li {
     margin-bottom: 10px;
     line-height: 1.6;
+    font-size: 15px;
+}
+
+@media (min-width: 769px) {
+    ul li {
+        font-size: 16px;
+    }
 }
 
 /* Links */
@@ -122,9 +214,17 @@ a:hover {
 
 /* Timeline Styles - Clean Visual Timeline */
 .timeline-container {
-    margin: 40px 0;
-    padding: 30px 0;
+    margin: 30px 0;
+    padding: 20px 0;
     text-align: left;
+    overflow-x: auto;
+}
+
+@media (min-width: 769px) {
+    .timeline-container {
+        margin: 40px 0;
+        padding: 30px 0;
+    }
 }
 
 .timeline {
@@ -132,9 +232,18 @@ a:hover {
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
-    max-width: 500px;
+    max-width: 100%;
     margin: 0;
-    padding: 0 30px;
+    padding: 0 20px;
+    min-width: 500px;
+}
+
+@media (min-width: 769px) {
+    .timeline {
+        max-width: 500px;
+        padding: 0 30px;
+        min-width: auto;
+    }
 }
 
 /* Horizontal connecting line */
@@ -199,16 +308,15 @@ a:hover {
     color: #0056b3;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for timeline */
 @media (max-width: 768px) {
     .timeline {
-        max-width: 350px;
-        padding: 0 20px;
+        min-width: 400px;
     }
     
     .timeline::before {
-        left: 32px;
-        right: 32px;
+        left: 28px;
+        right: 28px;
     }
     
     .timeline-circle {
@@ -223,14 +331,32 @@ a:hover {
     .timeline-text {
         font-size: 12px;
     }
+    
+    .timeline-label {
+        max-width: 80px;
+    }
 }
 
 /* Person Cards Styling */
 .people-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: 20px;
     margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+    .people-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (min-width: 769px) {
+    .people-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
 }
 
 .person-card {
@@ -405,17 +531,29 @@ a:hover {
 
 /* Content sections styling */
 .content-section {
-    margin: 40px 0;
+    margin: 30px 0;
     text-align: left;
 }
 
+@media (min-width: 769px) {
+    .content-section {
+        margin: 40px 0;
+    }
+}
+
 .content-section h3 {
-    font-size: 20px;
+    font-size: 18px;
     color: #333;
     margin-bottom: 15px;
     border-bottom: 2px solid #007bff;
     padding-bottom: 8px;
     text-align: left;
+}
+
+@media (min-width: 769px) {
+    .content-section h3 {
+        font-size: 20px;
+    }
 }
 
 .content-section ul {
@@ -434,17 +572,31 @@ a:hover {
 
 /* Contact footer styling */
 .contact-footer {
-    margin: 50px 0 30px 0;
-    padding: 30px 0;
+    margin: 40px 0 20px 0;
+    padding: 20px 0;
     border-top: 2px solid #e9ecef;
     text-align: left;
 }
 
+@media (min-width: 769px) {
+    .contact-footer {
+        margin: 50px 0 30px 0;
+        padding: 30px 0;
+    }
+}
+
 .contact-footer h3 {
-    font-size: 20px;
+    font-size: 18px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
+}
+
+@media (min-width: 769px) {
+    .contact-footer h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
 }
 
 .contact-footer p {
@@ -468,4 +620,80 @@ a:hover {
 .contact-footer em {
     color: #666;
     font-style: italic;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    /* Make links more touch-friendly */
+    a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    /* Adjust person card padding on mobile */
+    .person-content {
+        padding: 15px;
+    }
+    
+    .person-photo-section {
+        padding: 15px;
+    }
+    
+    /* Improve category title on mobile */
+    .category-title {
+        font-size: 20px;
+    }
+    
+    /* Better spacing for essay content */
+    .essay-content p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 481px) and (max-width: 768px) {
+    .content-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    main {
+        padding: 30px 20px;
+    }
+}
+
+/* Large mobile adjustments */
+@media (max-width: 480px) {
+    nav ul {
+        gap: 10px;
+    }
+    
+    nav ul li a {
+        font-size: 14px;
+        padding: 6px 0;
+    }
+    
+    h1 {
+        font-size: 22px;
+    }
+    
+    h2 {
+        font-size: 18px;
+    }
+    
+    .timeline-container {
+        margin: 20px 0;
+        padding: 15px 0;
+    }
+    
+    .content-section {
+        margin: 25px 0;
+    }
+    
+    .contact-footer {
+        margin: 30px 0 15px 0;
+        padding: 15px 0;
+    }
 }
