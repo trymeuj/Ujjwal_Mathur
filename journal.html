@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal - Ujjwal Mathur</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .password-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .password-input {
+            padding: 15px;
+            font-size: 18px;
+            margin: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .password-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .password-btn:hover {
+            background-color: #555;
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .app-container {
+            display: none;
+            height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .sidebar-nav {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar-nav li {
+            margin: 8px 0;
+        }
+
+        .sidebar-nav a {
+            color: #212529;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar-nav a.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .journal-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+
+        .journal-header {
+            padding: 20px 8%;
+            border-bottom: 1px solid #ddd;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .journal-header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .journal-header-title h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .journal-header-title span {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .journal-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .create-entry-btn {
+            padding: 8px 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.3s;
+        }
+
+        .create-entry-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        .save-status {
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .journal-content {
+            flex: 1;
+            padding: 16px 8%;
+            overflow-y: auto;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #999;
+            text-align: center;
+        }
+
+        .welcome-screen h2 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            color: #999;
+            font-style: italic;
+            font-size: 12px;
+        }
+
+        .entries-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .entry-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            overflow: visible;
+            box-shadow: none;
+        }
+
+        .entry-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            cursor: pointer;
+            background: transparent;
+            border-bottom: 1px solid #e1e4e8;
+        }
+
+        .entry-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .entry-date {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .entry-meta {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .entry-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .entry-toggle-btn {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #555;
+            transition: background 0.2s, transform 0.2s;
+            font-size: 14px;
+        }
+
+        .entry-toggle-btn:hover {
+            background: #e1e4e8;
+        }
+
+        .entry-toggle-btn.expanded {
+            transform: rotate(90deg);
+        }
+
+        .delete-entry-btn {
+            background: none;
+            border: 1px solid transparent;
+            color: #c0392b;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .delete-entry-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .entry-body {
+            padding: 8px 14px 14px 34px;
+            border-top: none;
+        }
+
+        .entry-body.collapsed {
+            display: none;
+        }
+
+        .entry-editor-wrapper {
+            position: relative;
+        }
+
+        .editor-toolbar {
+            position: absolute;
+            display: none;
+            background-color: #2c3e50;
+            padding: 6px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toolbar-btn, .toolbar-select {
+            background: none;
+            border: none;
+            color: #ecf0f1;
+            padding: 4px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+
+        .toolbar-btn:hover, .toolbar-select:hover {
+            background-color: #34495e;
+        }
+
+        .toolbar-btn b { font-weight: 900; }
+        .toolbar-btn u { text-decoration: underline; }
+        .toolbar-btn s { text-decoration: line-through; }
+
+        .toolbar-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 22px;
+            background-color: #34495e;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ecf0f1' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 6px center;
+        }
+
+        .entry-content {
+            min-height: 80px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-radius: 6px;
+            padding: 8px 10px;
+            border: 1px solid #dde1e7;
+            background: #fff;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .entry-content[contenteditable="true"]:empty:before {
+            content: attr(data-placeholder);
+            color: #aaa;
+        }
+
+        .month-sidebar {
+            width: 220px;
+            background-color: #f8f9fa;
+            border-left: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .month-sidebar-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .month-sidebar-header h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .month-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 0;
+        }
+
+        .month-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #444;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .month-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .month-item.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .month-name {
+            font-weight: 500;
+        }
+
+        .month-count {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            body {
+                overflow: auto;
+            }
+
+            .app-container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .journal-main {
+                width: 100%;
+            }
+
+            .month-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid #e9ecef;
+            }
+
+            .journal-header {
+                padding: 16px 5%;
+            }
+
+            .journal-content {
+                padding: 14px 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .password-container h1 {
+                font-size: 20px;
+                padding: 0 20px;
+                text-align: center;
+            }
+
+            .password-input {
+                width: 90%;
+                max-width: 300px;
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .password-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .sidebar-nav {
+                padding: 15px;
+            }
+
+            .sidebar-nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .sidebar-nav li {
+                margin: 0;
+            }
+
+            .sidebar-nav a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .month-sidebar-header {
+                padding: 10px 14px;
+            }
+
+            .month-item {
+                padding: 8px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .password-container h1 {
+                font-size: 18px;
+            }
+
+            .password-input {
+                width: 85%;
+                font-size: 14px;
+            }
+
+            .password-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .journal-header {
+                padding: 12px 4%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .journal-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .journal-content {
+                padding: 10px 4%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Screen -->
+    <div id="password-screen" class="password-container">
+        <h1>Enter Password to Access Journal</h1>
+        <input type="password" id="password-input" class="password-input" placeholder="Enter password">
+        <button onclick="checkPassword()" class="password-btn">Enter</button>
+        <div id="password-error" class="error-message"></div>
+    </div>
+
+    <!-- Main App Interface -->
+    <div id="app-container" class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="essays.html">Essays</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="journal.html" class="active">Journal</a></li>
+                    <li><a href="people.html">People</a></li>
+                    <li><a href="Ujjwal_Resume.pdf" target="_blank">Resume</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Journal Main Area -->
+        <div class="journal-main">
+            <div class="journal-header">
+                <div class="journal-header-title">
+                    <h2 id="month-title">Select a month</h2>
+                    <span id="month-subtitle">Your private journal, organised by month.</span>
+                </div>
+                <div class="journal-actions">
+                    <button class="create-entry-btn" onclick="createJournalEntry()">+ Create Journal</button>
+                    <span id="save-status" class="save-status"></span>
+                </div>
+            </div>
+            <div class="journal-content">
+                <div id="welcome-screen" class="welcome-screen">
+                    <h2>Hi Ujjwal</h2>
+                    <p>Select a month on the right and start journaling.</p>
+                </div>
+                <div id="entries-container" style="display: none;">
+                    <div id="entries-list" class="entries-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Month Sidebar -->
+        <div class="month-sidebar">
+            <div class="month-sidebar-header">
+                <h3>Months</h3>
+            </div>
+            <div id="month-list" class="month-list">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxrI1aZr6PiLNjRYoc5zA96yZD7aTuXig",
+            authDomain: "personal-website-e638b.firebaseapp.com",
+            projectId: "personal-website-e638b",
+            storageBucket: "personal-website-e638b.firebasestorage.app",
+            messagingSenderId: "338488336517",
+            appId: "1:338488336517:web:b9098f10970328c38789ec",
+            measurementId: "G-2BPPY29RH7"
+        };
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query, updateDoc, where } from 'https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js';
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const CORRECT_PASSWORD = "1906";
+
+        let currentYear = new Date().getFullYear();
+        let months = [];
+        let currentMonthId = null;
+        let entries = [];
+        let currentEntry = null;
+
+        // Password check
+        window.checkPassword = function() {
+            const inputPassword = document.getElementById('password-input').value.trim();
+            const errorDiv = document.getElementById('password-error');
+
+            if (inputPassword === CORRECT_PASSWORD) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('app-container').style.display = 'flex';
+                initJournal();
+            } else {
+                errorDiv.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('password-input').value = '';
+            }
+        };
+
+        function buildMonthsForCurrentYear() {
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            months = monthNames.map((name, index) => {
+                const monthNumber = String(index + 1).padStart(2, '0');
+                return {
+                    id: `${currentYear}-${monthNumber}`,
+                    label: `${name} ${currentYear}`,
+                    shortLabel: name,
+                    index
+                };
+            });
+        }
+
+        function renderMonthList() {
+            const monthList = document.getElementById('month-list');
+            monthList.innerHTML = months.map(month => {
+                const isActive = currentMonthId === month.id;
+                const count = entries.filter(e => e.monthId === month.id).length;
+                return `
+                    <div class="month-item ${isActive ? 'active' : ''}" onclick="selectMonth('${month.id}')">
+                        <span class="month-name">${month.label}</span>
+                        <span class="month-count">${count > 0 ? count + ' entries' : ''}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.selectMonth = async function(monthId) {
+            currentMonthId = monthId;
+            currentEntry = null;
+            updateHeaderForMonth();
+            showEntriesView();
+            await fetchEntriesForMonth(monthId);
+            renderMonthList();
+        };
+
+        function updateHeaderForMonth() {
+            const monthTitle = document.getElementById('month-title');
+            const subtitle = document.getElementById('month-subtitle');
+            if (!currentMonthId) {
+                monthTitle.textContent = 'Select a month';
+                subtitle.textContent = 'Your private journal, organised by month.';
+                return;
+            }
+            const month = months.find(m => m.id === currentMonthId);
+            if (month) {
+                monthTitle.textContent = month.label;
+                subtitle.textContent = 'Create short entries throughout the month. They stay here for you.';
+            }
+        }
+
+        async function fetchEntriesForMonth(monthId) {
+            const entriesList = document.getElementById('entries-list');
+            entriesList.innerHTML = '<div class="empty-state">Loading entries...</div>';
+
+            try {
+                const qRef = query(
+                    collection(db, "journalEntries"),
+                    where("monthId", "==", monthId)
+                );
+                const snapshot = await getDocs(qRef);
+                entries = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                // Sort by date on the client to avoid Firestore composite index requirement
+                entries.sort((a, b) => new Date(a.date || a.createdAt) - new Date(b.date || b.createdAt));
+                renderEntriesList();
+            } catch (error) {
+                console.error("Error loading journal entries:", error);
+                entriesList.innerHTML = '<div class="empty-state">Error loading entries.</div>';
+            }
+        }
+
+        function renderEntriesList() {
+            const entriesContainer = document.getElementById('entries-container');
+            const entriesList = document.getElementById('entries-list');
+
+            if (!currentMonthId) {
+                entriesContainer.style.display = 'none';
+                return;
+            }
+
+            entriesContainer.style.display = 'block';
+
+            if (entries.length === 0) {
+                entriesList.innerHTML = '<div class="empty-state">No entries yet for this month. Click "Create Journal" to start.</div>';
+                return;
+            }
+
+            entriesList.innerHTML = entries.map(entry => {
+                const dateObj = new Date(entry.date || entry.createdAt);
+                const formatted = formatDateForDisplay(dateObj);
+                const isExpanded = currentEntry && currentEntry.id === entry.id;
+                return `
+                    <div class="entry-card" data-entry-id="${entry.id}">
+                        <div class="entry-header" onclick="toggleEntry('${entry.id}')">
+                            <div class="entry-left">
+                                <button class="entry-toggle-btn ${isExpanded ? 'expanded' : ''}" onclick="toggleEntry('${entry.id}', event)">›</button>
+                                <div class="entry-date">${formatted}</div>
+                                <div class="entry-meta">${entry.updatedAt ? 'Updated' : 'Created'} ${(entry.updatedAt || entry.createdAt || '').slice(0, 10)}</div>
+                            </div>
+                            <div class="entry-actions">
+                                <button class="delete-entry-btn" onclick="deleteEntry('${entry.id}', event)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="entry-body ${isExpanded ? '' : 'collapsed'}">
+                            <div class="entry-editor-wrapper">
+                                <div class="editor-toolbar">
+                                    <button class="toolbar-btn" onclick="formatDoc('bold')"><b>B</b></button>
+                                    <button class="toolbar-btn" onclick="formatDoc('underline')"><u>U</u></button>
+                                    <button class="toolbar-btn" onclick="formatDoc('strikeThrough')"><s>S</s></button>
+                                    <select class="toolbar-select" onchange="formatDoc('formatBlock', this.value); this.value='p';">
+                                        <option value="p" disabled selected>Format</option>
+                                        <option value="h1">Heading 1</option>
+                                        <option value="h2">Heading 2</option>
+                                        <option value="h3">Heading 3</option>
+                                        <option value="p">Paragraph</option>
+                                    </select>
+                                </div>
+                                <div class="entry-content"
+                                     contenteditable="true"
+                                     data-placeholder="Write your journal entry..."
+                                     oninput="onEntryContentInput('${entry.id}', this)"
+                                     onclick="setCurrentEntryById('${entry.id}')"
+                                >${entry.content || ''}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.toggleEntry = function(entryId, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const card = document.querySelector(`.entry-card[data-entry-id="${entryId}"]`);
+            if (!card) return;
+            const body = card.querySelector('.entry-body');
+            const toggleBtn = card.querySelector('.entry-toggle-btn');
+            const isCollapsed = body.classList.contains('collapsed');
+
+            if (isCollapsed) {
+                body.classList.remove('collapsed');
+                toggleBtn.classList.add('expanded');
+            } else {
+                body.classList.add('collapsed');
+                toggleBtn.classList.remove('expanded');
+            }
+
+            setCurrentEntryById(entryId);
+        };
+
+        window.setCurrentEntryById = function(entryId) {
+            const entry = entries.find(e => e.id === entryId);
+            if (!entry) return;
+            currentEntry = { ...entry, isNew: false };
+        };
+
+        window.onEntryContentInput = function(entryId, element) {
+            setCurrentEntryById(entryId);
+            if (!currentEntry) return;
+            currentEntry.content = element.innerHTML;
+            triggerSave();
+        };
+
+        window.deleteEntry = async function(entryId, event) {
+            event.stopPropagation();
+            if (!confirm('Are you sure you want to delete this journal entry?')) return;
+
+            try {
+                await deleteDoc(doc(db, "journalEntries", entryId));
+                entries = entries.filter(e => e.id !== entryId);
+                if (currentEntry && currentEntry.id === entryId) {
+                    currentEntry = null;
+                }
+                renderEntriesList();
+                renderMonthList();
+            } catch (error) {
+                console.error("Error deleting entry:", error);
+                alert("Failed to delete entry. Please try again.");
+            }
+        };
+
+        window.createJournalEntry = function() {
+            if (!currentMonthId) {
+                alert('Please select a month first.');
+                return;
+            }
+
+            const now = new Date();
+            const isoNow = now.toISOString();
+
+            currentEntry = {
+                id: null,
+                monthId: currentMonthId,
+                date: isoNow,
+                content: '',
+                createdAt: isoNow,
+                updatedAt: isoNow,
+                isNew: true
+            };
+
+            const tempId = 'temp-' + Math.random().toString(36).slice(2);
+            currentEntry.tempId = tempId;
+            const displayEntry = { ...currentEntry, id: tempId };
+            entries.push(displayEntry);
+            entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+            renderEntriesList();
+
+            const card = document.querySelector(`.entry-card[data-entry-id="${tempId}"]`);
+            if (card) {
+                const body = card.querySelector('.entry-body');
+                const toggleBtn = card.querySelector('.entry-toggle-btn');
+                const editor = card.querySelector('.entry-content');
+                body.classList.remove('collapsed');
+                toggleBtn.classList.add('expanded');
+                editor.focus();
+            }
+
+            triggerSave();
+        };
+
+        window.formatDoc = function(command, value = null) {
+            document.execCommand(command, false, value);
+        };
+
+        let debounceTimer;
+        function triggerSave() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                saveCurrentEntry();
+            }, 1500);
+        }
+
+        async function saveCurrentEntry() {
+            if (!currentEntry) return;
+            const saveStatus = document.getElementById('save-status');
+            saveStatus.textContent = 'Saving...';
+
+            currentEntry.updatedAt = new Date().toISOString();
+
+            const entryData = {
+                monthId: currentEntry.monthId,
+                date: currentEntry.date,
+                content: currentEntry.content || '',
+                createdAt: currentEntry.createdAt,
+                updatedAt: currentEntry.updatedAt
+            };
+
+            try {
+                if (currentEntry.isNew || !currentEntry.id || (currentEntry.id && currentEntry.id.startsWith('temp-'))) {
+                    entryData.createdAt = currentEntry.createdAt || new Date().toISOString();
+                    const docRef = await addDoc(collection(db, "journalEntries"), entryData);
+                    const oldTempId = currentEntry.tempId;
+                    currentEntry.id = docRef.id;
+                    currentEntry.isNew = false;
+                    delete currentEntry.tempId;
+
+                    const idx = entries.findIndex(e => e.id === oldTempId);
+                    if (idx > -1) {
+                        entries[idx] = { ...currentEntry };
+                    } else {
+                        entries.push({ ...currentEntry });
+                    }
+                } else {
+                    const entryRef = doc(db, "journalEntries", currentEntry.id);
+                    await updateDoc(entryRef, entryData);
+
+                    const idx = entries.findIndex(e => e.id === currentEntry.id);
+                    if (idx > -1) {
+                        entries[idx] = { ...currentEntry };
+                    }
+                }
+
+                entries.sort((a, b) => new Date(a.date) - new Date(b.date));
+                renderEntriesList();
+                renderMonthList();
+
+                saveStatus.textContent = 'Saved';
+            } catch (error) {
+                console.error("Error saving entry:", error);
+                saveStatus.textContent = 'Error saving.';
+            }
+        }
+
+        function showEntriesView() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('entries-container').style.display = 'block';
+        }
+
+        function initSelectionToolbar() {
+            const toolbar = document.querySelector('.editor-toolbar');
+            if (!toolbar) return;
+
+            const positionToolbar = () => {
+                const selection = window.getSelection();
+                if (!selection.rangeCount || selection.isCollapsed) {
+                    toolbar.style.display = 'none';
+                    return;
+                }
+
+                const range = selection.getRangeAt(0);
+                const editor = range.commonAncestorContainer.closest
+                    ? range.commonAncestorContainer.closest('.entry-content')
+                    : null;
+
+                if (!editor) {
+                    toolbar.style.display = 'none';
+                    return;
+                }
+
+                const rect = range.getBoundingClientRect();
+                const editorRect = editor.getBoundingClientRect();
+
+                toolbar.style.display = 'flex';
+                let top = rect.top - editorRect.top - toolbar.offsetHeight - 5;
+                let left = rect.left - editorRect.left + (rect.width / 2) - (toolbar.offsetWidth / 2);
+
+                if (top < 0) {
+                    top = rect.bottom - editorRect.top + 5;
+                }
+                if (left < 0) left = 0;
+                if (left + toolbar.offsetWidth > editorRect.width) {
+                    left = editorRect.width - toolbar.offsetWidth;
+                }
+
+                toolbar.style.top = `${top}px`;
+                toolbar.style.left = `${left}px`;
+            };
+
+            document.addEventListener('selectionchange', positionToolbar);
+        }
+
+        function formatDateForDisplay(date) {
+            if (!(date instanceof Date) || isNaN(date.getTime())) return '';
+            const day = date.getDate();
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const monthName = monthNames[date.getMonth()];
+            return `${day} ${monthName} ${date.getFullYear()}`;
+        }
+
+        function initJournal() {
+            buildMonthsForCurrentYear();
+            renderMonthList();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+                passwordInput.focus();
+            }
+
+            initSelectionToolbar();
+        });
+    </script>
+</body>
+</html>
+
