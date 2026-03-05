@@ -388,6 +388,11 @@ a:hover {
         width: 100%;
     }
     
+    /* Reverse the second row on mobile to show chronological order */
+    .timeline-row:nth-child(2) {
+        flex-direction: column-reverse !important;
+    }
+    
     .timeline-row:last-child {
         margin-bottom: 0;
     }
@@ -407,7 +412,7 @@ a:hover {
         max-width: 100%;
         width: 100%;
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         gap: 0;
         margin-bottom: 35px;
         padding: 0;
@@ -427,7 +432,7 @@ a:hover {
         flex-shrink: 0;
         position: absolute;
         left: 86px; /* 94px line - 8px half of circle = 86px */
-        top: 50%;
+        top: 0;
         transform: translateY(-50%);
         z-index: 2;
     }
@@ -441,6 +446,7 @@ a:hover {
         width: 100%;
         max-width: 100%;
         overflow: visible;
+        padding-top: 8px;
     }
     
     .timeline-date {
@@ -450,7 +456,7 @@ a:hover {
         text-align: right;
         position: absolute;
         left: 0;
-        top: 50%;
+        top: 0;
         transform: translateY(-50%);
         margin-bottom: 0;
         line-height: 1.4;
@@ -464,6 +470,7 @@ a:hover {
         padding-right: 15px;
         max-width: none;
         word-wrap: break-word;
+        padding-top: 0;
     }
 }
 
