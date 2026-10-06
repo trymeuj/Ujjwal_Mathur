@@ -613,7 +613,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const CORRECT_PASSWORD = "1906";
+        // Authentication is handled by the Next.js server gate.
+        const CORRECT_PASSWORD = "";
 
         let currentYear = new Date().getFullYear();
         let months = [];
@@ -1004,4 +1005,3 @@
     </script>
 </body>
 </html>
-

@@ -1,0 +1,880 @@
+/* General Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Server-authenticated private-page sign in */
+.password-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+}
+
+.password-container h1 {
+    text-align: center;
+    margin: 0 0 8px;
+}
+
+.password-input {
+    width: min(100%, 320px);
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.password-btn {
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 6px;
+    background: #007bff;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+.password-btn:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+.error-message {
+    min-height: 24px;
+    color: #dc3545;
+}
+
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #333;
+    padding: 0;
+}
+
+/* Layout Container */
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+@media (min-width: 769px) {
+    .container {
+        flex-direction: row;
+    }
+}
+
+/* Left Navigation (Simple Sidebar) */
+.nav-sidebar {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+@media (min-width: 769px) {
+    .nav-sidebar {
+        width: 200px;
+        padding: 40px 20px;
+        border-bottom: none;
+        border-right: 1px solid #e9ecef;
+    }
+}
+
+/* Navigation Styling - Simple and Clean */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+@media (min-width: 769px) {
+    nav ul {
+        flex-direction: column;
+        margin-left: 20px;
+        gap: 0;
+    }
+}
+
+nav ul li {
+    margin-bottom: 0;
+}
+
+@media (min-width: 769px) {
+    nav ul li {
+        margin-bottom: 4px;
+    }
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+@media (min-width: 769px) {
+    nav ul li a {
+        padding: 5px 0;
+    }
+}
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
+/* Main Content Area */
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    main {
+        padding: 40px;
+    }
+}
+
+/* Content Container - Left-aligned with limited width */
+.content-container {
+    max-width: 100%;
+    width: 100%;
+    text-align: left !important;
+    margin: 0;
+    align-self: flex-start;
+}
+
+@media (min-width: 769px) {
+    .content-container {
+        max-width: 600px;
+    }
+}
+
+/* Special styling for individual essay pages - better reading experience */
+.essay-content {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left; /* Left-align text for better reading */
+    padding: 20px;
+}
+
+@media (min-width: 769px) {
+    .essay-content {
+        max-width: 65%;
+        padding: 20px;
+    }
+}
+
+/* Content Styling */
+h1, h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+@media (min-width: 769px) {
+    h1 {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+@media (min-width: 769px) {
+    h2 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+}
+
+p {
+    margin-bottom: 16px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+@media (min-width: 769px) {
+    p {
+        font-size: 16px;
+    }
+}
+
+/* Lists */
+ul {
+    margin-bottom: 20px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+@media (min-width: 769px) {
+    ul li {
+        font-size: 16px;
+    }
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Timeline Styles - Clean Visual Timeline with Zigzag Pattern */
+.timeline-container {
+    margin: 30px 0;
+    padding: 20px 0;
+    text-align: left;
+    overflow: visible;
+}
+
+@media (min-width: 769px) {
+    .timeline-container {
+        margin: 40px 0;
+        padding: 30px 0;
+    }
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+/* Rows containing timeline items */
+.timeline-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 50px;
+    padding: 0 30px;
+}
+
+.timeline-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Horizontal line for first row */
+.timeline-row:first-child::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    right: 30px;
+    height: 2px;
+    background-color: #ddd;
+    z-index: 1;
+}
+
+/* Horizontal line for second row */
+.timeline-row:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    right: 30px;
+    height: 2px;
+    background-color: #ddd;
+    z-index: 1;
+}
+
+/* Vertical connector from first row to second row */
+.timeline-row:first-child::after {
+    content: '';
+    position: absolute;
+    right: 30px;
+    top: 0;
+    width: 2px;
+    height: calc(100% + 50px);
+    background-color: #ddd;
+    z-index: 1;
+}
+
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1 1 0;
+    min-width: 150px;
+    max-width: 250px;
+    padding: 0 10px;
+    overflow: visible;
+    padding-top: 8px;
+}
+
+.timeline-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #007bff;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #ddd;
+    margin-bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.timeline-label {
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.timeline-date {
+    font-size: 11px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.timeline-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.3;
+}
+
+.timeline-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.timeline-text a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Responsive adjustments for timeline - Vertical timeline for mobile */
+@media (max-width: 768px) {
+    .timeline-container {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding: 0 20px;
+    }
+
+    .timeline {
+        position: relative;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Vertical line in the middle, running through nodes */
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 94px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background-color: #ddd;
+        z-index: 1;
+    }
+
+    .timeline-row {
+        padding: 0;
+        margin-bottom: 0;
+        flex-direction: column !important;
+        align-items: stretch;
+        gap: 0;
+        position: relative;
+        width: 100%;
+    }
+
+    /* Reverse the second row on mobile to show chronological order */
+    .timeline-row:nth-child(2) {
+        flex-direction: column-reverse !important;
+    }
+
+    .timeline-row:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Remove horizontal lines on mobile */
+    .timeline-row::before {
+        display: none;
+    }
+
+    /* Remove vertical connectors between rows */
+    .timeline-row::after {
+        display: none;
+    }
+
+    .timeline-item {
+        min-width: auto;
+        max-width: 100%;
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
+        margin-bottom: 35px;
+        padding: 0;
+        position: relative;
+        overflow: visible;
+        min-height: 20px;
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-circle {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        flex-shrink: 0;
+        position: absolute;
+        left: 86px; /* 94px line - 8px half of circle = 86px */
+        top: 0;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+
+    .timeline-label {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        text-align: left;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+        padding-top: 8px;
+    }
+
+    .timeline-date {
+        font-size: 11px;
+        flex-shrink: 0;
+        width: 78px;
+        text-align: right;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateY(-50%);
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+
+    .timeline-text {
+        font-size: 13px;
+        line-height: 1.4;
+        flex: 1;
+        padding-left: 118px; /* Date width (78px) + gap (8px) + circle width (16px) + gap (16px) */
+        padding-right: 15px;
+        max-width: none;
+        word-wrap: break-word;
+        padding-top: 0;
+    }
+}
+
+/* Person Cards Styling */
+.people-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+    .people-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (min-width: 769px) {
+    .people-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+}
+
+.person-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.person-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.person-photo-section {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.person-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.person-name {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.person-content {
+    padding: 20px;
+}
+
+.person-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+    transition: max-height 0.3s ease;
+}
+
+.person-text.collapsed {
+    max-height: 4.8em; /* Approximately 3 lines of text */
+    overflow: hidden;
+    position: relative;
+}
+
+.person-text.collapsed::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 1.6em;
+    background: linear-gradient(to right, transparent, #fff);
+    pointer-events: none;
+}
+
+.read-more-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    display: none; /* Hidden by default */
+}
+
+.read-more-btn:hover {
+    background: #0056b3;
+}
+
+.read-more-btn.visible {
+    display: inline-block;
+}
+
+.person-links {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.person-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 4px 8px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.person-link:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* Category sections */
+.category-section {
+    margin-bottom: 40px;
+}
+
+.category-title {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.category-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: #007bff;
+}
+
+/* Header section with profile photo */
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    gap: 20px;
+    width: 100%;
+}
+
+.header-section h2 {
+    margin: 0;
+    text-align: left;
+    flex: 1;
+}
+
+.header-section .profile-photo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 2px solid #f8f9fa !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments for header */
+@media (max-width: 768px) {
+    .header-section {
+        flex-direction: column;
+        text-align: left;
+        gap: 15px;
+    }
+
+    .header-section h2 {
+        text-align: left;
+    }
+}
+
+/* Content sections styling */
+.content-section {
+    margin: 30px 0;
+    text-align: left;
+}
+
+@media (min-width: 769px) {
+    .content-section {
+        margin: 40px 0;
+    }
+}
+
+.content-section h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+    text-align: left;
+}
+
+@media (min-width: 769px) {
+    .content-section h3 {
+        font-size: 20px;
+    }
+}
+
+.content-section ul {
+    margin-bottom: 20px;
+}
+
+.content-section li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* Contact footer styling */
+.contact-footer {
+    margin: 40px 0 20px 0;
+    padding: 20px 0;
+    border-top: 2px solid #e9ecef;
+    text-align: left;
+}
+
+@media (min-width: 769px) {
+    .contact-footer {
+        margin: 50px 0 30px 0;
+        padding: 30px 0;
+    }
+}
+
+.contact-footer h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+@media (min-width: 769px) {
+    .contact-footer h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.contact-footer p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.contact-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-footer a:hover {
+    text-decoration: underline;
+}
+
+.contact-footer strong {
+    color: #333;
+}
+
+.contact-footer em {
+    color: #666;
+    font-style: italic;
+}
+
+/* Additional responsive improvements */
+@media (max-width: 768px) {
+    /* Make links more touch-friendly */
+    a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Adjust person card padding on mobile */
+    .person-content {
+        padding: 15px;
+    }
+
+    .person-photo-section {
+        padding: 15px;
+    }
+
+    /* Improve category title on mobile */
+    .category-title {
+        font-size: 20px;
+    }
+
+    /* Better spacing for essay content */
+    .essay-content p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 481px) and (max-width: 768px) {
+    .content-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    main {
+        padding: 30px 20px;
+    }
+}
+
+/* Large mobile adjustments */
+@media (max-width: 480px) {
+    nav ul {
+        gap: 10px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+        padding: 6px 0;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .timeline-container {
+        margin: 20px 0;
+        padding: 15px 0;
+    }
+
+    .content-section {
+        margin: 25px 0;
+    }
+
+    .contact-footer {
+        margin: 30px 0 15px 0;
+        padding: 15px 0;
+    }
+}
