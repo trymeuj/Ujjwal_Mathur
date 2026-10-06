@@ -1,8 +1,0 @@
-node_modules/
-.next/
-out/
-.clone-tools/
-.env*
-!.env.example
-npm-debug.log*
-*.tsbuildinfo
