@@ -34,10 +34,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <li><Link href="/">Home</Link></li>
             <li><Link href="/essays">Essays</Link></li>
             <li><Link href="/books">Books</Link></li>
-            <li><Link href="/notes">Notes</Link></li>
-            <li><Link href="/journal">Journal</Link></li>
             <li><Link href="/people">People</Link></li>
-            <li><a href="/Ujjwal_Resume.pdf" target="_blank" rel="noreferrer">Resume</a></li>
           </ul>
         </nav>
       </div>
